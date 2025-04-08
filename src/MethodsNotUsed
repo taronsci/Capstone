@@ -1,0 +1,446 @@
+                                                        Hexagon
+
+//    private eddieDir[] edgeDirections = new eddieDir[6]; //we have this. we do not have this
+
+//constructor if we want to create hexagons out of the grid
+//    public Hexagon(Edge n, Edge nw, Edge sw, Edge s, Edge se, Edge ne){
+//        edge_n = n;
+//        edge_nw = nw;
+//        edge_sw = sw;
+//        edge_s = s;
+//        edge_se = se;
+//        edge_ne = ne;
+//        center = new Vertex(0,0);
+//    }
+
+//    /**
+//     * 2 Hexagons are equal if the directions of their respective edges correspond to each other
+//     * @param o
+//     * @return
+//     */
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o)
+//            return true;
+//        if (!(o instanceof Hexagon hexagon))
+//            return false;
+//        return edge_n.equals(hexagon.edge_n) && edge_nw.equals(hexagon.edge_nw) && edge_sw.equals(hexagon.edge_sw) && edge_s.equals(hexagon.edge_s) && edge_se.equals(hexagon.edge_se) && edge_ne.equals(hexagon.edge_ne);
+//    }
+
+    /**
+     * Updates the hexagon according to the output of the rule, and the edges that should be changed. If a rule was not found, then push all eddies forward (only inside the hexagon)
+     * @param output the output of the rule to be enforced
+     * @param shouldBeChanged is true if a specific rule was found, false if not.
+     */
+    public void updateHexagonEddies(eddieDir[] output, boolean[] shouldBeChanged){ //Change to boolean later, or sth else
+        Edge[] edges = getEdges();
+        Vertex other;
+        int[] changes = new int[6]; //need to be pushed forward. //could be boolean array
+        boolean makeChanges = false;
+
+        if(shouldBeChanged[0]) {
+            for (int i = 0; i < 6; i++) {
+                other = edges[i].getStart();
+
+                //the output can include only FC or NA
+                if ((output[i] == eddieDir.FC)) { //if the output is From-Center
+                    if (center.equals(other))  //if edge start Vertex corresponds to center of hexagon
+                        edges[i].setDirection(Edge.eddie.SE); //then set direction to Start-End
+                    else
+                        edges[i].setDirection(Edge.eddie.ES);
+                } else {
+                    edges[i].setDirection(Edge.eddie.NA);
+                }
+
+                if(!shouldBeChanged[i]) { //check if it is an eddie that should not be changed aka should be pushed forward, keep a list and push them forward after updating all edges
+                    changes[i + 3 % 6] = 1;
+                    makeChanges = true;
+                }
+            }
+        }else{
+            for (int i = 0; i < 6; i++) { //push forward (inside hexagon)
+                if(edgeDirections[i] == eddieDir.TC) { //check if there is an eddie TC that should be pushed forward. We ignore FC eddies here. NA eddies do not change
+                    changes[i + 3 % 6] = 1; //this means that the opposite direction of i should get an arrow FC
+                    makeChanges = true;
+                }
+            }
+        }
+        //could join this with above. This was for rotation case.
+        if(makeChanges) { //changed for not allowing rotations
+            for (int i = 0; i < 6; i++) { //push forward. maybe I want to have this as a separate method, although this push happens inside the hexagon
+                if (changes[i] == 1) { //this means that there should be an arrow in this direction. (going out)
+                    if (center.equals(edges[i].getStart()))  //if edge start Vertex corresponds to center of hexagon
+                        edges[i].setDirection(Edge.eddie.SE); //then set direction to Start-End
+                    else
+                        edges[i].setDirection(Edge.eddie.ES);
+                }
+            }
+        }
+    }
+
+/**
+     * Used in the constructor to set the initial edgeDirections()
+     */
+//    private void setInitialEdgeDirections(Edge n, Edge nw, Edge sw, Edge s, Edge se, Edge ne) {
+//        Edge[] edges = {n,nw,sw,s,se,ne};
+//
+//        Vertex other;
+//        for (int i = 0; i < 6; i++) {
+//            if (edges[i].getDirection() != Edge.eddie.NA) { //if eddie has dir
+//                other = edges[i].getStart();
+//
+//                if (center.equals(other)) { //if edge start Vertex corresponds to center of hexagon
+//                    if (edges[i].getDirection() == Edge.eddie.SE) { //if eddie is Start-End
+////                        edgeDirections[i] = eddieDir.FC;//then eddie direction is From-Center
+//                        setDirection(i,eddieDir.FC);
+//                    } else {
+////                        edgeDirections[i] = eddieDir.TC;//otherwise direction is To-Center
+//                        setDirection(i, eddieDir.TC);
+//                    }
+//                } else {
+//                    if (edges[i].getDirection() == Edge.eddie.SE) {
+////                        edgeDirections[i] = eddieDir.TC;
+//                        setDirection(i,eddieDir.TC);
+//                    } else {
+////                        edgeDirections[i] = eddieDir.FC;
+//                        setDirection(i, eddieDir.FC);
+//                    }
+//                }
+//            } else{
+//                setDirection(i, eddieDir.FC);
+////                edgeDirections[i] = eddieDir.NA;
+//            }
+//
+//        }
+//    }
+
+//            setDirection_n(output[0]);
+//            setDirection_nw(output[1]);
+//            setDirection_sw(output[2]);
+//            setDirection_s(output[3]);
+//            setDirection_se(output[4]);
+//            setDirection_ne(output[5]);
+
+//    public eddieDir[] getEdgeDirections() {
+//        return new eddieDir[]{};
+//    }
+
+push forward logic
+
+//    if(edgeDirections[i] == eddieDir.FC) //when pushing forward the eddie, we should decide what happens to it after
+//        pushForward(i, false); // aka: setDirection((i + 3) % 6, eddieDir.FC);
+//    else
+//        pushForward(i, true);
+
+
+private void pushForward(int i, boolean replace){
+//        (i+3)%6 means that the opposite direction of i should get an arrow FC
+        setDirection((i + 3) % 6, eddieDir.FC);
+
+        if(replace)
+            setDirection(i, eddieDir.NA);
+    }
+
+
+//    public Hexagon(Vertex center, VertexGrid vgrid, eddieDir[] directions){
+//        new Hexagon(center,vgrid);
+//
+//        if(directions != null)
+//
+//    }
+
+                                                        HexagonGrid
+
+//                x = new int[]{i, i - 1, i - 1, i, i + 1, i + 1, i}; //n, nw, sw, s, se, ne
+//                y = new int[]{j, j + 1, j + 2, j + 2, j + 2, j + 1, j + 1}; //j=0;i=1
+
+//not a good clone
+//    public HexagonGrid(HexagonGrid original){
+//        if(original == null){
+//            System.out.println("ERROR");
+//            System.exit(0);
+//        }
+//        x_length = original.x_length;
+//        y_width = original.y_width;
+//
+//        grid = new Hexagon[x_length][y_width];
+//        for(int y=0;y<y_width;y++){
+//            for(int x=0;x<x_length;x++){
+//                grid[x][y] = new Hexagon(original.getHexagon(x,y));
+//            }
+//        }
+//    }
+
+//Used this one
+public HexagonGrid(HexagonGrid original) {
+        if (original == null) {
+            System.out.println("ERROR");
+            System.exit(0);
+        }
+        vGrid = new VertexGrid(original.x_length + 2, original.y_width + 2);
+
+        x_length = original.x_length;
+        y_width = original.y_width;
+
+        grid = new Hexagon[x_length][y_width];
+        for (int y = 0; y < y_width; y++) {
+            for (int x = 0; x < x_length; x++) {
+//                grid[x][y] = new Hexagon(original.getHexagon(x, y));
+                grid[x][y] = new Hexagon(vGrid.getVertex(x,y), vGrid);
+            }
+        }
+    }
+
+
+
+
+                                                        Vertex
+//    private Vertex right;
+//    private Vertex left;
+//    private Vertex up;
+//    private Vertex down;
+
+//    public void setUp(Vertex up) {
+//        this.up = up;
+//    }
+//    public void setDown(Vertex down) {
+//        this.down = down;
+//    }
+//    public void setLeft(Vertex left) {
+//        this.left = left;
+//    }
+//    public void setRight(Vertex right) {
+//        this.right = right;
+//    }
+//
+//    public Vertex getUp() {
+//        return up;
+//    }
+//    public Vertex getLeft() {
+//        return left;
+//    }
+//    public Vertex getDown() {
+//        return down;
+//    }
+//    public Vertex getRight() {
+//        return right;
+//    }
+
+
+
+
+
+                                                            Wolfram Rules
+
+//    public WolframRules(){
+//        CircularlyLinkedList<Hexagon.eddieDir> q = new CircularlyLinkedList<>();
+//        q.addFirst(Hexagon.eddieDir.NA);
+//        q.addLast(Hexagon.eddieDir.TC);
+//        q.addLast(Hexagon.eddieDir.NA);
+//        q.addLast(Hexagon.eddieDir.NA);
+//        q.addLast(Hexagon.eddieDir.TC);
+//        q.addLast(Hexagon.eddieDir.NA);
+//        b[0] = q;
+//    }
+
+
+//    Edge noEddie = new Edge(Edge.eddie.NA);
+//    Edge fromCenter = new Edge(Edge.eddie.SE);
+//    Edge toCenter = new Edge(Edge.eddie.ES);
+//
+//    //assume direction SE means: start = center
+//    public final Hexagon[][] rule_378 = new Hexagon[][]{
+//        {new Hexagon(noEddie, toCenter, noEddie, noEddie, toCenter, noEddie), new Hexagon(noEddie, noEddie, fromCenter, noEddie, noEddie, fromCenter)},
+//        {new Hexagon(noEddie, toCenter, noEddie, noEddie, toCenter, toCenter), new Hexagon(fromCenter, noEddie, fromCenter, fromCenter, noEddie, noEddie)},
+//        {new Hexagon(toCenter, noEddie, noEddie, toCenter, noEddie, toCenter), new Hexagon(noEddie, fromCenter, fromCenter, noEddie, fromCenter, noEddie)},
+//        {new Hexagon(noEddie, toCenter, noEddie, toCenter, noEddie, toCenter), new Hexagon(noEddie, fromCenter, noEddie, fromCenter, noEddie, fromCenter)},
+//        {new Hexagon(toCenter, toCenter, noEddie, toCenter, toCenter, noEddie), new Hexagon(noEddie, fromCenter, fromCenter, noEddie, fromCenter, fromCenter)}
+//    };
+
+//    public final CircularlyLinkedList<Hexagon.eddieDir>[] b = new CircularlyLinkedList[6];
+//    public final int[][] a = new int[][]{
+//            {2,1,2,2,1,2},
+//            {2,1,2,2,1,1}
+//    };
+
+       in checkFixedRules method (after return -1)
+
+//if we allow rotations
+//        boolean match = false;
+//        int count = 0;
+//
+//        for (Hexagon.eddieDir eddieDir : hex) {
+//            if (eddieDir == Hexagon.eddieDir.TC)
+//                count++;
+//        }
+//        int rule;
+//        int rotation;
+//
+//        if(count == 0)
+//            return -3; //nothing to do
+//        else if(count == 1)
+//            return -2; //move forward
+//        else if(count == 2){
+//            //check if first rule or any of its rotations hold
+//            for(int i = 0;i < 3;i++){
+//                if (hex[i] == hex[i + 3] && hex[i] == Hexagon.eddieDir.TC) {
+//                    rule = 1;
+//                    rotation = i; // i-th rotation
+//                    break;
+//                }
+//            }
+//        }else if(count == 3){
+//
+//        }
+//
+//
+//        int[] hexInts = new int[]{hex[0].ordinal(), hex[1].ordinal(), hex[2].ordinal(), hex[3].ordinal(), hex[4].ordinal(), hex[5].ordinal()};
+//
+//        for(int i = 0; i < 5; i++) { //for every input
+////            if (Arrays.equals(hex, input[i])) {
+////                return i;
+////            }
+//            for(int j = 0;j < 6;j++){ //compare input to hexagon
+//                match = a[i][j] == hex[j].ordinal();
+//            }
+//            if(match)
+//                return i;
+//        }
+//        //check for rotations here
+//        //add non-fixed rules here?
+//        return -1;
+
+//have boolean flags while checking if hexagon is same as input. if flag is false - ignore it next time
+//    private void enforceNonFixedRule(Hexagon h){
+//        Hexagon.eddieDir[] hex = h.getHexagonEddies();
+//
+//        boolean[][] flags = new boolean[5][6]; //gather flags for all rules
+//        int[] mismatches= new int[5];
+//        int collisionEddieCount;
+//
+//        for (int r = 0;r < input.length;r++) { //for every rule
+//            collisionEddieCount = 0;
+//            for (int i = 0; i < 6; i++) { //compare each edge
+//                if (hex[i] == input[r][i] || hex[i] == Hexagon.eddieDir.FC && input[r][i] == Hexagon.eddieDir.NA) {  // equal || ignore FC eddies
+//                    flags[r][i] = true;
+//                    if(hex[i] == Hexagon.eddieDir.TC)
+//                        collisionEddieCount++;
+//                } else{
+//                    mismatches[r]++; //mismatch means that there is an eddie in the hexagon that isn't the same as its corresponding input eddie
+//                }
+//            }
+//            // ?
+//            if(collisionEddieCount >= 2 && mismatches[r] == 1){ //1. do the update with the least amount of mismatches, or the first one found 2. maybe it would be beneficial to start checking rules from the end, because they have more active eddies 3. ignore that one and do update
+//                //ignored FC eddies should be pushed onto the next hexagon !
+//                h.updateHexagonEddies(output[r], flags[r]); //give update an array of edges that should be changed according to the table, the others should move forward
+//                return;
+//            }
+//        }
+//
+//        int smallest = mismatches[0];
+//        for(int i = 1;i < mismatches.length;i++){
+//            if(mismatches[i] < smallest)
+//                smallest = mismatches[i];
+//        }
+//        //h.updateHexagonEddies() ?
+//        //if there is more than one mismatch...
+//
+//    }
+
+
+enforce rules
+//        else{ //if no rule was found
+//            System.out.println("no rule was found");
+//            h.updateHexagonEddies(-1,false,null);
+
+enforce non-fixed rules
+//            if(mismatches[r] == 0){
+//                System.out.println(1);
+//                System.out.println(Arrays.toString(flags[r]));
+//                h.updateHexagonEddies(r, false, flags[r]);
+//                return;
+//            }
+
+public static void enforceRule(Hexagon h){
+        int rule = checkFixedRules(h);
+
+        if(rule != -1){ //if a rule is found
+            h.updateHexagon(rule, true,null);
+        }else{
+            enforceNonFixedRule(h);
+        }
+    }
+
+
+Were in HexGrid
+
+//        VertexGrid vGrid = VertexGrid.getInstance();
+x_length = vGrid.getX_length() - 2;
+y_width = vGrid.getY_width() - 2;
+
+/**
+     * Updates the copy Hexagon (1st step of step)
+     * @param copy
+     */
+    public void update(HexagonGrid copy) {
+//        HexagonGrid copy = new HexagonGrid(this); //vGrid.getX_length(), vGrid.getY_width()
+
+        for(int x = 0; x < x_length; x++) { // int x = x_length - 1; x >=0 ; x--
+            for (int y = 0; y < y_width; y++) {
+                System.out.println(x+ " " + y);
+                WolframRules.enforceRule(this.grid[x][y], copy.grid[x][y]);
+
+                System.out.println("original");
+                this.pr();
+                System.out.println("copy");
+                copy.pr();
+            }
+        }
+
+        //these should be the same
+//        System.out.println(copy.grid[0][0].getEdge_se().getDirection());
+//        System.out.println(copy.grid[1][1].getEdge_nw().getDirection());
+//      //other tests
+//        if(this.grid[1][1].getEdge_nw() == this.grid[0][0].getEdge_se()) //we want 1000
+//            System.out.println(1000);
+//
+//        if(copy.grid[1][1].getEdge_nw() == copy.grid[0][0].getEdge_se()) //we want 1500.
+//            System.out.println(1500);
+//
+//        if(this.grid[1][1] != copy.grid[1][1]) //we want 2000. Hexagons are not equal
+//            System.out.println(2000);
+//
+//        if(this.grid[1][1].getEdge_nw() != copy.grid[1][1].getEdge_nw()) //we want 3000. Edges are not equal
+//            System.out.println(3000);
+//
+//        if(this.vGrid != copy.vGrid) //we want 4000.
+//            System.out.println(4000);
+        //basically, copy constructor isn't making the edges the same
+        //why not make it a blank copy? Yes
+
+//        grid = copy.grid;
+    }
+
+
+/**
+     * Copies contents of copy Hexagon to the original Hexagon (2st step of step)
+     * @param original
+     */
+    public void copy(HexagonGrid original){
+        //throw exception if clone is bigger than original or isn't suitable
+
+        for(int x = 0; x < x_length; x++) { // int x = x_length - 1; x >=0 ; x--
+            for (int y = 0; y < y_width; y++) {
+                System.out.println(x+ " " + y);
+
+                original.grid[x][y].setEdgeDirections(grid[x][y].getHexagonEddies(),false);
+
+                grid[x][y].setEdgeDirections(new Hexagon.eddieDir[]{Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA},true);
+                System.out.println("original");
+                original.pr();
+                System.out.println("copy");
+                this.pr();
+
+            }
+        }
+    }
