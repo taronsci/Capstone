@@ -27,8 +27,8 @@ public class WolframRules {
     private int checkFixedRules(Hexagon h){
         Hexagon.eddieDir[] hex = h.getHexagonEddies();
 
-        if(hex == null)
-            return -10;
+//        if(hex == null)
+//            return -10;
 
         for(int i = 0; i < 5; i++) { //for every rule input
             if (Arrays.equals(hex, input[i])) {
@@ -56,6 +56,13 @@ public class WolframRules {
             collisionEddieCount = 0;
 
             for (int i = 0; i < 6; i++) { //compare each edge
+                if(hex[i] == null) {
+//                    copy.reflect1(hex, h);
+                    copy.reflect2(hex, h);
+                    return;
+                    //call a method that does wall reflection
+                }
+
                 if(hex[i] == input[r][i]) {  // equal || (hex[i] == Hexagon.eddieDir.FC && input[r][i] == Hexagon.eddieDir.NA)
                     flags[r][i] = true;
                 } else{
@@ -115,8 +122,8 @@ public class WolframRules {
 
         int rule = checkFixedRules(original);
 
-        if(rule == -10)
-            return;
+//        if(rule == -10)
+//            return;
 
         if(rule != -1){ //if a rule is found
             copy.updateHexagon(rule, true,null, original);

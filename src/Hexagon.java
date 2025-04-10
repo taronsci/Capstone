@@ -19,6 +19,7 @@ public class Hexagon {
 
     public Hexagon(Vertex center, VertexGrid vgrid){
         this.center = center;
+        this.vGrid = vgrid;
 //        VertexGrid vgrid = VertexGrid.getInstance();
         int[] c = center.getCoordinate();
 
@@ -204,9 +205,11 @@ public class Hexagon {
 
         Edge[] edges = getEdges();
         Vertex other;
-        for(int i = 0;i < 6;i++) {
-            if(edges[i] == null)
-                return null;
+        for(int i = 0; i < 6; i++) {
+            if(edges[i].getEnd() == null) {
+//                ans[i] = null;
+                continue;
+            }
 
             if(edges[i].getDirection() != Edge.eddie.NA) { //if eddie has dir
                 other = edges[i].getStart();
@@ -232,6 +235,9 @@ public class Hexagon {
     public eddieDir getEddie(int i){
         Edge[] edges = getEdges();
         Vertex other;
+
+            if(edges[i].getEnd() == null)
+                return null;
 
             if(edges[i].getDirection() != Edge.eddie.NA) { //if eddie has dir
                 other = edges[i].getStart();
@@ -306,22 +312,83 @@ public class Hexagon {
         }
     }
 
+    /**
+     * reflects in other angle direction
+     * @param hex
+     * @param original
+     */
+    public void reflect1(eddieDir[] hex, Hexagon original){
+        //for now assume vertical wall
+        if (hex[0] == null || hex[3] == null ) {
+            if(hex[1] == eddieDir.TC) {
+                setDirection(2, eddieDir.FC);
+                original.setDirection(1, eddieDir.NA);
+            }
+            if(hex[2] == eddieDir.TC){
+                setDirection(1, eddieDir.FC);
+                original.setDirection(2, eddieDir.NA);
+            }
+            if(hex[5] == eddieDir.TC){
+                setDirection(4, eddieDir.FC);
+                original.setDirection(5, eddieDir.NA);
+            }
+            if(hex[4] == eddieDir.TC){
+                setDirection(5, eddieDir.FC);
+                original.setDirection(4, eddieDir.NA);
+            }
+        }
+    }
+
+    /**
+     * Reflects in same angle direction
+     * @param hex
+     * @param original
+     */
+    public void reflect2(eddieDir[] hex, Hexagon original){
+        //for now assume vertical wall
+        if (hex[0] == null || hex[3] == null ) {
+            if(hex[1] == eddieDir.TC) {
+                setDirection(1, eddieDir.FC);
+                original.setDirection(1, eddieDir.NA);
+            }
+            if(hex[2] == eddieDir.TC){
+                setDirection(2, eddieDir.FC);
+                original.setDirection(2, eddieDir.NA);
+            }
+            if(hex[5] == eddieDir.TC){
+                setDirection(5, eddieDir.FC);
+                original.setDirection(5, eddieDir.NA);
+            }
+            if(hex[4] == eddieDir.TC){
+                setDirection(4, eddieDir.FC);
+                original.setDirection(4, eddieDir.NA);
+            }
+        }
+    }
+
     public void reset(){
         setEdgeDirections(new Hexagon.eddieDir[]{Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA},true);
     }
     public void makeWall(int edge){
         switch(edge) {
-            case 0: edge_n = null;
+            case 0: vGrid.setNull(edge_n);
+//                edge_n.setNull();
+//                edge_n = null;
                 break;
-            case 1: edge_nw = null;
+            case 1: vGrid.setNull(edge_nw);
+//                edge_nw = null;
                 break;
-            case 2: edge_sw = null;
+            case 2: vGrid.setNull(edge_sw);
+//                edge_sw = null;
                 break;
-            case 3: edge_s = null;
+            case 3: vGrid.setNull(edge_s);
+//                edge_s = null;
                 break;
-            case 4: edge_se = null;
+            case 4: vGrid.setNull(edge_se);
+//                edge_se = null;
                 break;
-            case 5: edge_ne = null;
+            case 5: vGrid.setNull(edge_ne);
+//                edge_ne = null;
                 break;
         }
     }
@@ -337,6 +404,15 @@ public class Hexagon {
 //            }
 //        }
 //    }
+
+    public static void main(String[] args) {
+        eddieDir[] test = new eddieDir[2];
+        test[1] = eddieDir.FC;
+        System.out.println(test[0]);
+
+
+    }
+
 
 
 }

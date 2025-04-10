@@ -4,23 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="696f1cbc-6b04-4c28-a223-83f389ed66c1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Capstone.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CircularlyLinkedList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Edge.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/HexCellularAutomaton.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Hexagon.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/HexagonGrid.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MethodsNotUsed" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Vertex.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/VertexGrid.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/WolframRules.java" afterDir="false" />
+    <list default="true" id="696f1cbc-6b04-4c28-a223-83f389ed66c1" name="Changes" comment="everything">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HexCellularAutomaton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HexCellularAutomaton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hexagon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hexagon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HexagonGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HexagonGrid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MethodsNotUsed" beforeDir="false" afterPath="$PROJECT_DIR$/src/MethodsNotUsed" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VertexGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VertexGrid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WolframRules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WolframRules.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +24,13 @@
       <list>
         <option value="Class" />
       </list>
+    </option>
+  </component>
+  <component name="Git.Pull.Settings">
+    <option name="OPTIONS">
+      <set>
+        <option value="REBASE" />
+      </set>
     </option>
   </component>
   <component name="Git.Settings">
@@ -50,6 +49,7 @@
   "keyToString": {
     "Application.HexCellularAutomaton.executor": "Run",
     "Application.HexLatticeCA.executor": "Run",
+    "Application.Hexagon.executor": "Run",
     "Application.HexagonGrid.executor": "Run",
     "Application.Main.executor": "Run",
     "Application.VertexGrid.executor": "Run",
@@ -61,6 +61,13 @@
   <component name="RunManager" selected="Application.HexCellularAutomaton">
     <configuration name="HexCellularAutomaton" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="HexCellularAutomaton" />
+      <module name="Capstone" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Hexagon" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Hexagon" />
       <module name="Capstone" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -91,6 +98,7 @@
       <list>
         <item itemvalue="Application.HexCellularAutomaton" />
         <item itemvalue="Application.HexagonGrid" />
+        <item itemvalue="Application.Hexagon" />
         <item itemvalue="Application.VertexGrid" />
         <item itemvalue="Application.Main" />
       </list>
@@ -105,6 +113,38 @@
       <option name="presentableId" value="Default" />
       <updated>1740315749078</updated>
     </task>
+    <task id="LOCAL-00001" summary="everything">
+      <option name="closed" value="true" />
+      <created>1744106906460</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1744106906460</updated>
+    </task>
+    <task id="LOCAL-00002" summary="everything">
+      <option name="closed" value="true" />
+      <created>1744107119768</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1744107119768</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="everything" />
+    <option name="LAST_COMMIT_MESSAGE" value="everything" />
   </component>
 </project>

@@ -23,20 +23,23 @@ public class HexagonGrid{
             j++;
         }
     }
-    public Hexagon getNeighbor(Hexagon hex, int direction){
-        int[] coo = hex.getCenter().getCoordinate();
-
-        switch(direction) {
-            case 0: return getHexagon(coo[0],coo[1]-1);
-            case 1: return getHexagon(coo[0]-1,coo[1]); //left
-            case 2: return getHexagon(coo[0]-1,coo[1]+1);
-            case 3: return getHexagon(coo[0],coo[1]+1);
-            case 4: return getHexagon(coo[0]+1,coo[1]+1);
-            case 5: return getHexagon(coo[0]+1,coo[1]); //right
-            default:
-                return null;
-        }
-    }
+//    public Hexagon getNeighbor(Hexagon hex, int direction){
+//        int[] coo = hex.getCenter().getCoordinate();
+//
+//        switch(direction) {
+//            case 0: if(getHexagon(coo[0],coo[1]-1) != null)
+//                        return getHexagon(coo[0],coo[1]-1);
+//            case 1: if(getHexagon(coo[0]-1,coo[1]) != null)
+//                        return getHexagon(coo[0]-1,coo[1]); //left
+//
+//            case 2: return getHexagon(coo[0]-1,coo[1]+1);
+//            case 3: return getHexagon(coo[0],coo[1]+1);
+//            case 4: return getHexagon(coo[0]+1,coo[1]+1);
+//            case 5: return getHexagon(coo[0]+1,coo[1]); //right
+//            default:
+//                return null;
+//        }
+//    }
 
     public int getX_length() {
         return x_length;
@@ -69,43 +72,72 @@ public class HexagonGrid{
         Hexagon left;
         Hexagon right;
 
-        left = getHexagon(x,y);
+        left = getHexagon(x, y);
         left.makeWall(4); //verevi teq pate
-        right = getHexagon(x+1,y+1);
+        right = getHexagon(x+1, y+1);
 
         for(int i = y;i < y + length; i++){
             left.makeWall(3);
             right.makeWall(3);
 
             //should check existence of hexagons
+//            if(getHexagon(x,i+1) != null)
             left = getHexagon(x,i+1);
             right = getHexagon(x+1,i+2);
         }
-
-        left = this.getNeighbor(left,3);
-        left.makeWall(4); //nerqevi teq pate
+        right.makeWall(1);
+//        left = this.getNeighbor(left,3);
+//        left.makeWall(4); //nerqevi teq pate
     }
 
     public void setUpGrid(){ //test set-up grid
-        for(int x = 0; x < 2;x++) {
+//        for(int x = 0; x < 2; x++) {
             for (int y = 0; y < y_width; y++) {
-                grid[x][y].setEdgeDirections(new Hexagon.eddieDir[]{Hexagon.eddieDir.NA, Hexagon.eddieDir.TC, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.FC, Hexagon.eddieDir.NA}, true);
+                grid[0][y].setEdgeDirections(new Hexagon.eddieDir[]{Hexagon.eddieDir.NA, Hexagon.eddieDir.TC, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.FC, Hexagon.eddieDir.NA}, true);
             }
-        }
+//        }
 //        grid[1][0].setEdgeDirections(new Hexagon.eddieDir[]{Hexagon.eddieDir.NA, Hexagon.eddieDir.TC, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.FC, Hexagon.eddieDir.NA},true);
     }
 
     public static void main(String[] args) {
 //        VertexGrid.initialize(4,4);
         HexagonGrid test = new HexagonGrid(4, 4);
-        HexagonGrid clone = new HexagonGrid(4, 4);
+//        HexagonGrid clone = new HexagonGrid(4, 4);
 
-//        test.pr();
+        test.pr();
 //        test.setUpGrid();
         Hexagon a = test.getHexagon(0,0);
-        Hexagon b = clone.getHexagon(0,0);
+//        Hexagon b = clone.getHexagon(0,0);
+
 //        System.out.println(test.getHexagon(0,0).getEdge_nw().getDirection());
 //        System.out.println(test.getHexagon(1,0).getEdge_nw().getDirection());
+
+        if(test.getHexagon(0,0).getEdge_s() == test.getHexagon(0,1).getEdge_n())
+            System.out.println(1000);
+
+//        test.getHexagon(0,0).setDirection_s(Hexagon.eddieDir.TC);
+        test.getHexagon(0,1).makeWall(0);
+
+        System.out.println("0,0 s edge: "+ test.getHexagon(0,0).getEdge_s());
+        System.out.println("0,0 s eddie: "+ test.getHexagon(0,0).getEddie(3));
+
+        System.out.println("0,1 n edge: " + test.getHexagon(0,1).getEdge_n());
+        System.out.println("0,1 n eddie: " + test.getHexagon(0,1).getEddie(0));
+
+        test.getHexagon(0,0).setDirection_ne(Hexagon.eddieDir.TC);
+
+//        test.getHexagon(1,0).makeWall(5);
+//
+//
+//        System.out.println("0,0 s edge: "+ test.getHexagon(0,0).getEdge_ne());
+//        System.out.println("0,0 s eddie: "+ test.getHexagon(0,0).getEddie(5));
+//
+//        System.out.println("1,0 n edge: " + test.getHexagon(1,0).getEdge_sw());
+//        System.out.println("1,0 n eddie: " + test.getHexagon(1,0).getEddie(2));
+
+        if(test.getHexagon(0,0).getEdge_s() == test.getHexagon(0,1).getEdge_n())
+            System.out.println(1500);
+
 
 
 //        Grid update tests

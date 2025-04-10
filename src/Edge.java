@@ -1,9 +1,11 @@
+import java.util.List;
+
 public class Edge {
 
     public enum eddie{SE, ES, NA}
 
-    private final Vertex start;
-    private final Vertex end;
+    private Vertex start;
+    private Vertex end;
     private eddie direction;
 
     public Edge(Vertex start, Vertex end, eddie direction){
@@ -46,7 +48,10 @@ public class Edge {
     }
 
     public String toString() {
-        return "(" +start.toString() +", "+ end.toString() +")";
+        if(end == null)
+            return null;
+
+        return "(" + start.toString() +", "+ end.toString() +")";
     }
 
     public void setDirection(eddie direction){
@@ -60,5 +65,13 @@ public class Edge {
     }
     public Vertex getStart() {
         return start;
+    }
+
+    public List<Vertex> getEdge(){
+        return List.of(start, end);
+    }
+    public void setNull(){
+        start = null;
+        end = null;
     }
 }

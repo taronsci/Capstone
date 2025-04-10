@@ -444,3 +444,16 @@ y_width = vGrid.getY_width() - 2;
             }
         }
     }
+
+
+    //    public static void initialize(int rows, int cols) {
+    //        if (instance == null) {
+    //            instance = new VertexGrid(rows, cols);
+    //        }
+    //    }
+    //    public static VertexGrid getInstance() {
+    //        if (instance == null) {
+    //            throw new IllegalStateException("Grid not initialized! Call initialize() first.");
+    //        }
+    //        return instance;
+    //    }

@@ -57,17 +57,10 @@ public class VertexGrid {
 
     }
 
-//    public static void initialize(int rows, int cols) {
-//        if (instance == null) {
-//            instance = new VertexGrid(rows, cols);
-//        }
-//    }
-//    public static VertexGrid getInstance() {
-//        if (instance == null) {
-//            throw new IllegalStateException("Grid not initialized! Call initialize() first.");
-//        }
-//        return instance;
-//    }
+    public void setNull(Edge e){
+//        edges.remove(e.getEdge());
+        e.setNull();
+    }
 
     public Vertex getVertex(int x, int y){
         return grid[x][y];
