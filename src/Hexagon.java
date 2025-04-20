@@ -1,4 +1,5 @@
 import javax.print.attribute.standard.MediaSize;
+import java.util.Random;
 
 public class Hexagon {
     public enum eddieDir{FC, TC, NA}
@@ -300,9 +301,13 @@ public class Hexagon {
         }else{ //if there are no rules that can be applied, push all forward (inside hexagon)
             for (int i = 0; i < 6; i++) {
                 if(originalEdgeDirections[i] == eddieDir.TC) { //check if there is an eddie TC that should be pushed forward. We ignore FC eddies here. NA eddies do not change
-//                    System.out.println(13);
+//                    System.out.println("pushing forward" + 13);
+
                     setDirection((i + 3) % 6, eddieDir.FC); //eddie is pushed forward
                     original.setDirection(i, eddieDir.NA); //NA appears in its place             problem here?
+
+//                    System.out.println("original" + original);
+//                    System.out.println("copy" + this);
 
 //                    System.out.println(this);
 //                    System.out.println(getEdge_nw().getDirection());
@@ -362,6 +367,81 @@ public class Hexagon {
             if(hex[4] == eddieDir.TC){
                 setDirection(4, eddieDir.FC);
                 original.setDirection(4, eddieDir.NA);
+            }
+        }
+    }
+
+    /**
+     * Reflects in 2 directions
+     * @param hex
+     * @param original
+     */
+    public void reflect3(eddieDir[] hex, Hexagon original){
+
+        //vertical eddies
+        if(hex[0] == eddieDir.TC){
+            setDirection(3, eddieDir.FC);
+            original.setDirection(0, eddieDir.NA);
+        }else if(hex[3] == eddieDir.TC){
+            setDirection(0, eddieDir.FC);
+            original.setDirection(3, eddieDir.NA);
+        }
+
+        if(hex[5] == null){ //on left side
+
+            if(hex[2] == eddieDir.TC){ //from below
+                setDirection(1, eddieDir.FC);
+
+                Random random = new Random();
+                int rand = random.nextInt(0,2);
+                if(rand == 0) { //case 1
+                    setDirection(0, eddieDir.FC);
+                }else{ //case 2
+                    setDirection(3, eddieDir.FC);
+                }
+
+                original.setDirection(2, eddieDir.NA);
+            }
+            if(hex[1] == eddieDir.TC){ //from above
+                setDirection(2, eddieDir.FC);
+
+                Random random = new Random();
+                int rand = random.nextInt(0,2);
+                if(rand == 0) { //case 1
+                    setDirection(0, eddieDir.FC);
+                }else{ //case 2
+                    setDirection(3, eddieDir.FC);
+                }
+
+                original.setDirection(1, eddieDir.NA);
+            }
+
+        }else if(hex[1] == null || hex[2] == null){ //right side
+            if(hex[4] == eddieDir.TC){ //from below
+                setDirection(5, eddieDir.FC);
+
+                Random random = new Random();
+                int rand = random.nextInt(0,2);
+                if(rand == 0) { //case 7
+                    setDirection(0, eddieDir.FC);
+                }else{ //case 8
+                    setDirection(3, eddieDir.FC);
+                }
+
+                original.setDirection(4, eddieDir.NA);
+            }
+            if(hex[5] == eddieDir.TC){ //from above
+                setDirection(4, eddieDir.FC);
+
+                Random random = new Random();
+                int rand = random.nextInt(0,2);
+                if(rand == 0) { //case 6
+                    setDirection(0, eddieDir.FC);
+                }else{ //case 5
+                    setDirection(3, eddieDir.FC);
+                }
+
+                original.setDirection(5, eddieDir.NA);
             }
         }
     }

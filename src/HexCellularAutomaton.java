@@ -44,9 +44,13 @@ public class HexCellularAutomaton {
 //                System.out.println(x+ " " + y);
 
                 //edge null checks done only for method below
+//                System.out.println("main hexagon" + x+","+y+" "+ main.getHexagon(x,y));
+//                System.out.println("clone hexagon" + x+","+y+" "+ clone.getHexagon(x,y));
                 main.getHexagon(x,y).setEdgeDirections(clone.getHexagon(x,y).getHexagonEddies(),false);
-
+//                System.out.println("main hexagon after setting" + x+","+y+" "+ main.getHexagon(x,y));
                 clone.getHexagon(x,y).reset();
+//                System.out.println("clone hexagon after resetting" + x+","+y+" "+ clone.getHexagon(x,y));
+
 //                System.out.println("original");
 //                main.pr();
 //                System.out.println("copy");
@@ -75,17 +79,12 @@ public class HexCellularAutomaton {
 
     public static void main(String[] args) {
         WolframRules bookRules = new WolframRules();
-        HexCellularAutomaton test = new HexCellularAutomaton(10,30, bookRules);
+        HexCellularAutomaton test = new HexCellularAutomaton(80,500, bookRules); //10,50, (5,10,20)
 
         test.setup();
-        test.setWall(5,7,10); //(2, 4,rules), (0,0,2) 1step
-//        NA TC NA null null NA    NA TC NA NA FC NA
-//        null TC NA null FC NA    NA null NA null FC NA
-//        null TC NA NA null NA    null TC NA null FC NA
-//        NA TC NA NA FC NA    null null NA NA FC NA
-        test.main.pr();
+        test.setWall(4,20,60); //(2, 4,rules), (0,0,2) 1step
 
-        test.step(50);
+        test.step(100);
         test.main.pr();
 
     }

@@ -62,30 +62,19 @@ public class HexagonGrid{
     }
 
     /**
-     *
-     *
      * @param x
      * @param y
      * @param length one hexagon distance = 2edges
      */
     public void insertDiagonalWall(int x, int y, int length){
-        Hexagon left;
-        Hexagon right;
-
-        left = getHexagon(x, y);
-        left.makeWall(4); //verevi teq pate
-        right = getHexagon(x+1, y+1);
+        Hexagon left = getHexagon(x, y);
 
         for(int i = y;i < y + length; i++){
-            left.makeWall(3);
-            right.makeWall(3);
+            left = this.getHexagon(x,i + 1);
 
-            //should check existence of hexagons
-//            if(getHexagon(x,i+1) != null)
-            left = getHexagon(x,i+1);
-            right = getHexagon(x+1,i+2);
+            left.makeWall(5);
+            left.makeWall(4);
         }
-        right.makeWall(1);
 //        left = this.getNeighbor(left,3);
 //        left.makeWall(4); //nerqevi teq pate
     }
@@ -93,7 +82,10 @@ public class HexagonGrid{
     public void setUpGrid(){ //test set-up grid
 //        for(int x = 0; x < 2; x++) {
             for (int y = 0; y < y_width; y++) {
-                grid[0][y].setEdgeDirections(new Hexagon.eddieDir[]{Hexagon.eddieDir.NA, Hexagon.eddieDir.TC, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.FC, Hexagon.eddieDir.NA}, true);
+//                grid[0][y].setEdgeDirections(new Hexagon.eddieDir[]{Hexagon.eddieDir.NA, Hexagon.eddieDir.TC, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.FC, Hexagon.eddieDir.NA}, true);
+//                grid[0][y].setEdgeDirections(new Hexagon.eddieDir[]{Hexagon.eddieDir.NA, Hexagon.eddieDir.TC, Hexagon.eddieDir.TC, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA}, true);
+                grid[0][y].setDirection(1, Hexagon.eddieDir.TC);
+                grid[0][y].setDirection(2, Hexagon.eddieDir.TC);
             }
 //        }
 //        grid[1][0].setEdgeDirections(new Hexagon.eddieDir[]{Hexagon.eddieDir.NA, Hexagon.eddieDir.TC, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.FC, Hexagon.eddieDir.NA},true);
