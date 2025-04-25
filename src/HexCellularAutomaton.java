@@ -44,12 +44,8 @@ public class HexCellularAutomaton {
 //                System.out.println(x+ " " + y);
 
                 //edge null checks done only for method below
-//                System.out.println("main hexagon" + x+","+y+" "+ main.getHexagon(x,y));
-//                System.out.println("clone hexagon" + x+","+y+" "+ clone.getHexagon(x,y));
                 main.getHexagon(x,y).setEdgeDirections(clone.getHexagon(x,y).getHexagonEddies(),false);
-//                System.out.println("main hexagon after setting" + x+","+y+" "+ main.getHexagon(x,y));
                 clone.getHexagon(x,y).reset();
-//                System.out.println("clone hexagon after resetting" + x+","+y+" "+ clone.getHexagon(x,y));
 
 //                System.out.println("original");
 //                main.pr();
@@ -63,7 +59,6 @@ public class HexCellularAutomaton {
         for(int i = 0; i < count; i++){
             update();
             copy();
-//            main.pr();
             setup();
         }
 
@@ -76,6 +71,7 @@ public class HexCellularAutomaton {
     public void setWall(int x_wall, int y_wall, int wall_length){
         main.insertDiagonalWall(x_wall, y_wall, wall_length);
     }
+
 
     public static void main(String[] args) {
         WolframRules bookRules = new WolframRules();

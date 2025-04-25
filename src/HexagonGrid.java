@@ -51,6 +51,10 @@ public class HexagonGrid{
         return grid[x][y];
     }
 
+    public VertexGrid getvGrid() {
+        return vGrid;
+    }
+
     public void pr(){
         for(int y = 0; y < y_width;y++) { //y
             for(int x = 0; x < x_length; x++) { //x
