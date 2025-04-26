@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="696f1cbc-6b04-4c28-a223-83f389ed66c1" name="Changes" comment="fixed issues with updates">
+    <list default="true" id="696f1cbc-6b04-4c28-a223-83f389ed66c1" name="Changes" comment="working model">
+      <change afterPath="$PROJECT_DIR$/src/HexViewerPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HexCellularAutomaton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HexCellularAutomaton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hexagon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hexagon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HexagonGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HexagonGrid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MethodsNotUsed" beforeDir="false" afterPath="$PROJECT_DIR$/src/MethodsNotUsed" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VertexGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VertexGrid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WolframRules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WolframRules.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +145,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745145915610</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="working model">
+      <option name="closed" value="true" />
+      <created>1745598330061</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1745598330061</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -158,6 +171,7 @@
     <MESSAGE value="everything" />
     <MESSAGE value="Wall functions added" />
     <MESSAGE value="fixed issues with updates" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed issues with updates" />
+    <MESSAGE value="working model" />
+    <option name="LAST_COMMIT_MESSAGE" value="working model" />
   </component>
 </project>

@@ -486,3 +486,245 @@ y_width = vGrid.getY_width() - 2;
 //        left = this.getNeighbor(left,3);
 //        left.makeWall(4); //nerqevi teq pate
     }
+
+    Hexagon
+
+    //    public void makeWall(){
+    //        setNull(3);
+    //    }
+
+    //    public void makeWall(boolean[] edges){
+    //        for(int i = 0; i < edges.length; i++){
+    //            if(edges[i]){
+    //                setNull(i);
+    //            }
+    //        }
+    //    }
+
+old Panel
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Line2D;
+import java.awt.geom.Path2D;
+
+public class HexViewerPanel extends JPanel {
+    private static final int HEX_SIZE = 10; //radius
+    private static final double WIDTH = Math.sqrt(3) * HEX_SIZE;
+    private static final double HEIGHT = 2 * HEX_SIZE;
+
+    private final Hexagon[][] hexGrid;
+
+    public HexViewerPanel(Hexagon[][] hexGrid) {
+        this.hexGrid = hexGrid;
+        setPreferredSize(new Dimension(2560, 1600));
+        setBackground(Color.WHITE);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+
+        for (int row = 0; row < hexGrid[0].length; row++) {
+            for (int col = 0; col < hexGrid.length; col++) {
+
+                Hexagon hex = hexGrid[col][row];
+
+                double x = col * WIDTH * 0.5; // was *0.5, below: *0.75
+                double y = row * HEIGHT * 0.5  - (col % 2 == 0 ? 0 :  HEIGHT / 4);
+
+
+                drawHex(g2, x, y);
+                drawHexEdges(g2, x, y, hex);
+            }
+        }
+    }
+
+    private void drawHex(Graphics2D g2, double x, double y) {
+        Path2D hex = new Path2D.Double();
+
+        x += WIDTH / 2;
+        y += 3 * HEIGHT / 4 ;
+
+        for (int i = 0; i < 6; i++) {
+            double angle = Math.toRadians(60 * i - 30);
+
+            double dx = HEX_SIZE * Math.cos(angle);
+            double dy = HEX_SIZE * Math.sin(angle);
+
+            if (i == 0)
+                hex.moveTo(x + dx, y + dy);
+            else
+                hex.lineTo(x + dx, y + dy);
+        }
+        hex.closePath();
+        g2.setColor(Color.LIGHT_GRAY);
+        g2.draw(hex);
+    }
+
+    private void drawHexEdges(Graphics2D g2, double cx, double cy, Hexagon hex) {
+        Edge[] edges = hex.getEdges();
+
+        cx += WIDTH / 2;
+        cy += 3 * HEIGHT / 4 ;
+
+        for (int i = 0; i < edges.length; i++) {
+
+            if (edges[i] == null || hex.getEddie(i) == Hexagon.eddieDir.NA)
+                continue;
+
+//            cx += WIDTH/2;
+//            cy += HEIGHT/4;
+
+            drawArrow(g2, cx, cy, i, hex.getEddie(i));
+        }
+    }
+
+    private void drawArrow(Graphics2D g2, double cx, double cy, int edgeIndex, Hexagon.eddieDir direction) {
+
+        double angle = Math.toRadians(270 - 60 * edgeIndex);
+        double dx = HEX_SIZE * Math.cos(angle);
+        double dy = HEX_SIZE * Math.sin(angle);
+
+        double x1, y1, x2, y2;
+
+        if (direction == Hexagon.eddieDir.FC) {
+            x1 = cx;
+            y1 = cy;
+            x2 = cx + dx;
+            y2 = cy + dy;
+        } else {
+            x1 = cx + dx;
+            y1 = cy + dy;
+            x2 = cx;
+            y2 = cy;
+        }
+
+        g2.setColor(Color.RED); //direction == Hexagon.eddieDir.FC ? Color.BLUE : Color.RED
+        g2.setStroke(new BasicStroke(1));
+        g2.draw(new Line2D.Double(x1, y1, x2, y2));
+        drawArrowHead(g2, x1, y1, x2, y2);
+    }
+
+    private void drawArrowHead(Graphics2D g2, double x1, double y1, double x2, double y2) {
+        double phi = Math.toRadians(25);
+        int barb = 3;
+
+        double dx = x2 - x1;
+        double dy = y2 - y1;
+        double theta = Math.atan2(dy, dx);
+
+        double x, y;
+        for (int j = 0; j < 2; j++) {
+            double rho = theta + (j == 0 ? phi : -phi);
+            x = x2 - barb * Math.cos(rho);
+            y = y2 - barb * Math.sin(rho);
+            g2.draw(new Line2D.Double(x2, y2, x, y));
+        }
+    }
+}
+
+
+/**
+     * Reflects in 2 directions (does not conserve mass)
+     * @param hex
+     * @param original
+     */
+    public void reflect3(eddieDir[] hex, Hexagon original){
+
+        //vertical eddies
+        if(hex[0] == eddieDir.TC){
+            setDirection(3, eddieDir.FC);
+            original.setDirection(0, eddieDir.NA);
+        }else if(hex[3] == eddieDir.TC){
+            setDirection(0, eddieDir.FC);
+            original.setDirection(3, eddieDir.NA);
+        }
+
+        if(hex[5] == null){ //on left side
+
+            if(hex[2] == eddieDir.TC){ //from below
+                setDirection(1, eddieDir.FC);
+
+                Random random = new Random();
+                int rand = random.nextInt(0,2);
+                if(rand == 0) { //case 1
+                    setDirection(0, eddieDir.FC);
+                }else{ //case 2
+                    setDirection(3, eddieDir.FC);
+                }
+
+                original.setDirection(2, eddieDir.NA);
+            }
+            if(hex[1] == eddieDir.TC){ //from above
+                setDirection(2, eddieDir.FC);
+
+                Random random = new Random();
+                int rand = random.nextInt(0,2);
+                if(rand == 0) { //case 1
+                    setDirection(0, eddieDir.FC);
+                }else{ //case 2
+                    setDirection(3, eddieDir.FC);
+                }
+
+                original.setDirection(1, eddieDir.NA);
+            }
+
+        }else if(hex[1] == null || hex[2] == null){ //right side
+            if(hex[4] == eddieDir.TC){ //from below
+                setDirection(5, eddieDir.FC);
+
+                Random random = new Random();
+                int rand = random.nextInt(0,2);
+                if(rand == 0) { //case 7
+                    setDirection(0, eddieDir.FC);
+                }else{ //case 8
+                    setDirection(3, eddieDir.FC);
+                }
+
+                original.setDirection(4, eddieDir.NA);
+            }
+            if(hex[5] == eddieDir.TC){ //from above
+                setDirection(4, eddieDir.FC);
+
+                Random random = new Random();
+                int rand = random.nextInt(0,2);
+                if(rand == 0) { //case 6
+                    setDirection(0, eddieDir.FC);
+                }else{ //case 5
+                    setDirection(3, eddieDir.FC);
+                }
+
+                original.setDirection(5, eddieDir.NA);
+            }
+        }
+    }
+
+
+/**
+     * reflects in other angle direction. Null is 0 and 3 directions (didn't work out)
+     * @param hex
+     * @param original
+     */
+    public void reflect1(eddieDir[] hex, Hexagon original){
+        //for now assume vertical wall
+        if (hex[0] == null || hex[3] == null ) {
+            if(hex[1] == eddieDir.TC) {
+                setDirection(2, eddieDir.FC);
+                original.setDirection(1, eddieDir.NA);
+            }
+            if(hex[2] == eddieDir.TC){
+                setDirection(1, eddieDir.FC);
+                original.setDirection(2, eddieDir.NA);
+            }
+            if(hex[5] == eddieDir.TC){
+                setDirection(4, eddieDir.FC);
+                original.setDirection(5, eddieDir.NA);
+            }
+            if(hex[4] == eddieDir.TC){
+                setDirection(5, eddieDir.FC);
+                original.setDirection(4, eddieDir.NA);
+            }
+        }
+    }

@@ -55,9 +55,8 @@ public class WolframRules {
 
             for (int i = 0; i < 6; i++) { //compare each edge
                 if(hex[i] == null) {
-//                    copy.reflect1(hex, h);
+                    copy.reflect1(hex, h);
 //                    copy.reflect2(hex, h);
-                    copy.reflect3(hex, h);
                     return;
                 }
 

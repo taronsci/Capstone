@@ -323,25 +323,74 @@ public class Hexagon {
      * @param original
      */
     public void reflect1(eddieDir[] hex, Hexagon original){
-        //for now assume vertical wall
-        if (hex[0] == null || hex[3] == null ) {
-            if(hex[1] == eddieDir.TC) {
-                setDirection(2, eddieDir.FC);
-                original.setDirection(1, eddieDir.NA);
-            }
-            if(hex[2] == eddieDir.TC){
+        //vertical eddies to push forward
+        if(hex[0] == eddieDir.TC){
+            setDirection(3, eddieDir.FC);
+            original.setDirection(0, eddieDir.NA);
+        }else if(hex[3] == eddieDir.TC){
+            setDirection(0, eddieDir.FC);
+            original.setDirection(3, eddieDir.NA);
+        }
+
+        //vertical wall cases
+        if(hex[5] == null && hex[4] == null){ //on left side of vertical wall
+
+            if(hex[2] == eddieDir.TC){ //from below
                 setDirection(1, eddieDir.FC);
                 original.setDirection(2, eddieDir.NA);
             }
-            if(hex[5] == eddieDir.TC){
+            if(hex[1] == eddieDir.TC){ //from above
+                setDirection(2, eddieDir.FC);
+                original.setDirection(1, eddieDir.NA);
+            }
+
+        }else if(hex[1] == null && hex[5] == null) { //top wall
+            if(hex[2] == eddieDir.TC){ //from sw
                 setDirection(4, eddieDir.FC);
+                original.setDirection(2, eddieDir.NA);
+            }
+            if(hex[4] == eddieDir.TC){ //from se
+                setDirection(2, eddieDir.FC);
+                original.setDirection(4, eddieDir.NA);
+            }
+            if(hex[3] == eddieDir.TC){ //from south
+                setDirection(3, eddieDir.FC);
+                original.setDirection(3, eddieDir.NA);
+            }
+            if(hex[0] == eddieDir.TC){ //from north (bottom wall case)
+                setDirection(0, eddieDir.FC);
+                original.setDirection(0, eddieDir.NA);
+            }
+
+        }else if(hex[2] == null && hex[4] == null) { //bottom wall
+            if(hex[1] == eddieDir.TC){ //from nw
+                setDirection(5, eddieDir.FC);
+                original.setDirection(1, eddieDir.NA);
+            }
+            if(hex[5] == eddieDir.TC){ //from ne
+                setDirection(1, eddieDir.FC);
                 original.setDirection(5, eddieDir.NA);
             }
-            if(hex[4] == eddieDir.TC){
+            if(hex[0] == eddieDir.TC){ //from north
+                setDirection(0, eddieDir.FC);
+                original.setDirection(0, eddieDir.NA);
+            }
+            if(hex[3] == eddieDir.TC){ //from south (top wall case)
+                setDirection(3, eddieDir.FC);
+                original.setDirection(3, eddieDir.NA);
+            }
+
+        } else if(hex[2] == null || hex[1] == null ){ //on right side of vertical wall
+            if(hex[4] == eddieDir.TC){ //from below
                 setDirection(5, eddieDir.FC);
                 original.setDirection(4, eddieDir.NA);
             }
+            if(hex[5] == eddieDir.TC){ //from above
+                setDirection(4, eddieDir.FC);
+                original.setDirection(5, eddieDir.NA);
+            }
         }
+
     }
 
     /**
@@ -371,84 +420,11 @@ public class Hexagon {
         }
     }
 
-    /**
-     * Reflects in 2 directions
-     * @param hex
-     * @param original
-     */
-    public void reflect3(eddieDir[] hex, Hexagon original){
-
-        //vertical eddies
-        if(hex[0] == eddieDir.TC){
-            setDirection(3, eddieDir.FC);
-            original.setDirection(0, eddieDir.NA);
-        }else if(hex[3] == eddieDir.TC){
-            setDirection(0, eddieDir.FC);
-            original.setDirection(3, eddieDir.NA);
-        }
-
-        if(hex[5] == null){ //on left side
-
-            if(hex[2] == eddieDir.TC){ //from below
-                setDirection(1, eddieDir.FC);
-
-                Random random = new Random();
-                int rand = random.nextInt(0,2);
-                if(rand == 0) { //case 1
-                    setDirection(0, eddieDir.FC);
-                }else{ //case 2
-                    setDirection(3, eddieDir.FC);
-                }
-
-                original.setDirection(2, eddieDir.NA);
-            }
-            if(hex[1] == eddieDir.TC){ //from above
-                setDirection(2, eddieDir.FC);
-
-                Random random = new Random();
-                int rand = random.nextInt(0,2);
-                if(rand == 0) { //case 1
-                    setDirection(0, eddieDir.FC);
-                }else{ //case 2
-                    setDirection(3, eddieDir.FC);
-                }
-
-                original.setDirection(1, eddieDir.NA);
-            }
-
-        }else if(hex[1] == null || hex[2] == null){ //right side
-            if(hex[4] == eddieDir.TC){ //from below
-                setDirection(5, eddieDir.FC);
-
-                Random random = new Random();
-                int rand = random.nextInt(0,2);
-                if(rand == 0) { //case 7
-                    setDirection(0, eddieDir.FC);
-                }else{ //case 8
-                    setDirection(3, eddieDir.FC);
-                }
-
-                original.setDirection(4, eddieDir.NA);
-            }
-            if(hex[5] == eddieDir.TC){ //from above
-                setDirection(4, eddieDir.FC);
-
-                Random random = new Random();
-                int rand = random.nextInt(0,2);
-                if(rand == 0) { //case 6
-                    setDirection(0, eddieDir.FC);
-                }else{ //case 5
-                    setDirection(3, eddieDir.FC);
-                }
-
-                original.setDirection(5, eddieDir.NA);
-            }
-        }
-    }
 
     public void reset(){
         setEdgeDirections(new Hexagon.eddieDir[]{Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA},true);
     }
+
     public void makeWall(int edge){
         switch(edge) {
             case 0: vGrid.setNull(edge_n);
@@ -473,17 +449,7 @@ public class Hexagon {
         }
     }
 
-//    public void makeWall(){
-//        setNull(3);
-//    }
 
-//    public void makeWall(boolean[] edges){
-//        for(int i = 0; i < edges.length; i++){
-//            if(edges[i]){
-//                setNull(i);
-//            }
-//        }
-//    }
 
     public static void main(String[] args) {
         eddieDir[] test = new eddieDir[2];

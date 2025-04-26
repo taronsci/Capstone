@@ -74,6 +74,10 @@ public class VertexGrid {
             return edges.get(Arrays.asList(e, s));
     }
 
+    public Vertex[][] getGrid() {
+        return grid;
+    }
+
     public int getX_length() {
         return x_length;
     }
