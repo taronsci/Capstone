@@ -1,5 +1,3 @@
-import javax.print.attribute.standard.MediaSize;
-import java.util.Random;
 
 public class Hexagon {
     public enum eddieDir{FC, TC, NA}
@@ -323,24 +321,25 @@ public class Hexagon {
      * @param original
      */
     public void reflect1(eddieDir[] hex, Hexagon original){
-        //vertical eddies to push forward
-        if(hex[0] == eddieDir.TC){
-            setDirection(3, eddieDir.FC);
-            original.setDirection(0, eddieDir.NA);
-        }else if(hex[3] == eddieDir.TC){
-            setDirection(0, eddieDir.FC);
-            original.setDirection(3, eddieDir.NA);
-        }
+//        //vertical eddies to push forward
+//        if(hex[0] == eddieDir.TC){
+//            setDirection(3, eddieDir.FC);
+//            original.setDirection(0, eddieDir.NA);
+//        }else if(hex[3] == eddieDir.TC){
+//            setDirection(0, eddieDir.FC);
+//            original.setDirection(3, eddieDir.NA);
+//        }
 
-        //vertical wall cases
         if(hex[5] == null && hex[4] == null){ //on left side of vertical wall
-
             if(hex[2] == eddieDir.TC){ //from below
                 setDirection(1, eddieDir.FC);
                 original.setDirection(2, eddieDir.NA);
             }
             if(hex[1] == eddieDir.TC){ //from above
-                setDirection(2, eddieDir.FC);
+                if(hex[2] != null)
+                    setDirection(2, eddieDir.FC);
+                else
+                    setDirection(1, eddieDir.FC);
                 original.setDirection(1, eddieDir.NA);
             }
 
@@ -353,14 +352,7 @@ public class Hexagon {
                 setDirection(2, eddieDir.FC);
                 original.setDirection(4, eddieDir.NA);
             }
-            if(hex[3] == eddieDir.TC){ //from south
-                setDirection(3, eddieDir.FC);
-                original.setDirection(3, eddieDir.NA);
-            }
-            if(hex[0] == eddieDir.TC){ //from north (bottom wall case)
-                setDirection(0, eddieDir.FC);
-                original.setDirection(0, eddieDir.NA);
-            }
+
 
         }else if(hex[2] == null && hex[4] == null) { //bottom wall
             if(hex[1] == eddieDir.TC){ //from nw
@@ -371,26 +363,39 @@ public class Hexagon {
                 setDirection(1, eddieDir.FC);
                 original.setDirection(5, eddieDir.NA);
             }
-            if(hex[0] == eddieDir.TC){ //from north
-                setDirection(0, eddieDir.FC);
-                original.setDirection(0, eddieDir.NA);
-            }
-            if(hex[3] == eddieDir.TC){ //from south (top wall case)
-                setDirection(3, eddieDir.FC);
-                original.setDirection(3, eddieDir.NA);
-            }
 
         } else if(hex[2] == null || hex[1] == null ){ //on right side of vertical wall
             if(hex[4] == eddieDir.TC){ //from below
-                setDirection(5, eddieDir.FC);
+                if(hex[5] != null)
+                    setDirection(5, eddieDir.FC);
+                else
+                    setDirection(4, eddieDir.FC);
+
                 original.setDirection(4, eddieDir.NA);
             }
             if(hex[5] == eddieDir.TC){ //from above
                 setDirection(4, eddieDir.FC);
                 original.setDirection(5, eddieDir.NA);
             }
+
+            if(hex[1] == eddieDir.TC){ //from above
+                setDirection(4, eddieDir.FC);
+                original.setDirection(1, eddieDir.NA);
+            }
+            if(hex[2] == eddieDir.TC){ //from above
+                setDirection(5, eddieDir.FC);
+                original.setDirection(2, eddieDir.NA);
+            }
         }
 
+        if(hex[3] == eddieDir.TC){
+            setDirection(3, eddieDir.FC);
+            original.setDirection(3, eddieDir.NA);
+        }
+        if(hex[0] == eddieDir.TC){
+            setDirection(0, eddieDir.FC);
+            original.setDirection(0, eddieDir.NA);
+        }
     }
 
     /**
@@ -458,7 +463,6 @@ public class Hexagon {
 
 
     }
-
 
 
 }

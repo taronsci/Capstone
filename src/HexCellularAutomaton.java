@@ -7,7 +7,6 @@ public class HexCellularAutomaton {
     private HexagonGrid clone;
     private WolframRules rules;
 
-    private HexViewerPanel viewerPanel;
     private int count = 0;
 
     /**
@@ -65,36 +64,47 @@ public class HexCellularAutomaton {
         for(int i = 0; i < count; i++){
             update();
             copy();
-            setup();
+//            if(this.count < 50)
+                main.setUpGrid();
         }
-
     }
 
     public void setup(){
+        if(count == 0)
+            main.setWalls();
+
         main.setUpGrid();
-        main.setWalls();
     }
 
     public void setWall(int x_wall, int y_wall, int wall_length){
-        main.insertDiagonalWall(x_wall, y_wall, wall_length);
+        main.insertVerticalWall(x_wall, y_wall, wall_length, true);
     }
 
-
-
     public void draw(int steps){
+        //Individual arrows
         JFrame frame = new JFrame("Hexagonal Lattice Viewer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        viewerPanel = new HexViewerPanel(main.gethGrid());
+        HexViewerPanelIndiv viewerPanel = new HexViewerPanelIndiv(main.gethGrid());
         frame.add(viewerPanel);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        startTimer(steps);
+        //Average arrows
+        JFrame frame1 = new JFrame("Hexagonal Lattice Viewer");
+        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        HexViewerPanelAVG viewerPanel1 = new HexViewerPanelAVG(main.gethGrid());
+        frame1.add(viewerPanel1);
+        frame1.pack();
+        frame1.setLocationRelativeTo(null);
+        frame1.setVisible(true);
+
+        startTimer(steps, viewerPanel, viewerPanel1);
     }
 
-    private void startTimer(int steps) {
+    private void startTimer(int steps, HexViewerPanel viewerPanel, HexViewerPanel hexViewerPanel) {
 
         Timer timer = new Timer(50, e -> {
             if(count > steps){
@@ -104,6 +114,7 @@ public class HexCellularAutomaton {
 
             this.step(1); // ⚡ this should update the lattice gas model to the next step
             viewerPanel.repaint(); // 🔴 this repaints ONLY the arrows (grid is static)
+            hexViewerPanel.repaint();
             count++;
         });
 
@@ -112,16 +123,12 @@ public class HexCellularAutomaton {
 
     public static void main(String[] args) {
         WolframRules bookRules = new WolframRules();
-        HexCellularAutomaton test = new HexCellularAutomaton(165,75, bookRules); // 165,75, size 10 fits computer screen
+        HexCellularAutomaton test = new HexCellularAutomaton(200,100, bookRules); // 165,75, size 10 fits computer screen
         //10,50, (5,10,20)
 
         test.setup();
-        test.setWall(20,20,30); //(2, 4,rules), (0,0,2) 1step
+        test.setWall(20,20,30); // (20,20,30)
 
-//        test.step(1000);
-//        test.main.pr();
-        test.draw(100);
-
-
+        test.draw(400);
     }
 }

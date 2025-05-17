@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class HexagonGrid{
 
     private VertexGrid vGrid;
@@ -23,23 +25,6 @@ public class HexagonGrid{
             j++;
         }
     }
-//    public Hexagon getNeighbor(Hexagon hex, int direction){
-//        int[] coo = hex.getCenter().getCoordinate();
-//
-//        switch(direction) {
-//            case 0: if(getHexagon(coo[0],coo[1]-1) != null)
-//                        return getHexagon(coo[0],coo[1]-1);
-//            case 1: if(getHexagon(coo[0]-1,coo[1]) != null)
-//                        return getHexagon(coo[0]-1,coo[1]); //left
-//
-//            case 2: return getHexagon(coo[0]-1,coo[1]+1);
-//            case 3: return getHexagon(coo[0],coo[1]+1);
-//            case 4: return getHexagon(coo[0]+1,coo[1]+1);
-//            case 5: return getHexagon(coo[0]+1,coo[1]); //right
-//            default:
-//                return null;
-//        }
-//    }
 
     public int getX_length() {
         return x_length;
@@ -70,31 +55,40 @@ public class HexagonGrid{
      * @param y
      * @param length one hexagon distance = 2edges
      */
-    public void insertDiagonalWall(int x, int y, int length){
+    public void insertVerticalWall(int x, int y, int length, boolean right){
         Hexagon left;
+        if(right) {
+            for (int i = y; i < y + length; i++) {
+                left = this.getHexagon(x, i + 1);
 
-        for(int i = y;i < y + length; i++){
-            left = this.getHexagon(x, i + 1);
-
-            left.makeWall(5);
-            left.makeWall(4);
+                left.makeWall(5);
+                left.makeWall(4);
+            }
         }
-//        left = this.getNeighbor(left,3);
-//        left.makeWall(4); //nerqevi teq pate
+        //new
+        else{
+            for (int i = y; i < y + length; i++) {
+                left = this.getHexagon(x, i);
+
+                left.makeWall(1);
+                left.makeWall(2);
+            }
+        }
+
     }
 
     public void insertHorizontalWall(int x, int y, int length, boolean top){
         Hexagon cur;
 
         if(top) {
-            for (int i = x + 1; i < x + length; i += 2) {
+            for (int i = x; i < x + length; i ++) {
                 cur = this.getHexagon(i, y);
 
                 cur.makeWall(1);
                 cur.makeWall(5);
             }
         }else{
-            for (int i = x ; i < x + length; i += 2) {
+            for (int i = x ; i < x + length; i ++) {
                 cur = this.getHexagon(i, y);
 
                 cur.makeWall(2);
@@ -106,32 +100,38 @@ public class HexagonGrid{
 
     public void insertCornerWalls(){
         Hexagon cur;
+
         cur = this.getHexagon(x_length-1,y_width-1); //bottom right
         cur.makeWall(2);
 
-        cur = this.getHexagon(x_length-1,0); //top right
+        cur = this.getHexagon(x_length - 1,0); //top right
         cur.makeWall(5);
-        cur.makeWall(4);
-        cur.makeWall(0);
+
     }
 
     public void setUpGrid(){ //test set-up grid
-//        for(int x = 0; x < 2; x++) {
-            for (int y = 0; y < y_width; y++) {
-//                grid[0][y].setEdgeDirections(new Hexagon.eddieDir[]{Hexagon.eddieDir.NA, Hexagon.eddieDir.TC, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.FC, Hexagon.eddieDir.NA}, true);
-//                grid[0][y].setEdgeDirections(new Hexagon.eddieDir[]{Hexagon.eddieDir.NA, Hexagon.eddieDir.TC, Hexagon.eddieDir.TC, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA}, true);
-                grid[0][y].setDirection(1, Hexagon.eddieDir.TC);
-                grid[0][y].setDirection(2, Hexagon.eddieDir.TC);
-            }
-//        }
-//        grid[1][0].setEdgeDirections(new Hexagon.eddieDir[]{Hexagon.eddieDir.NA, Hexagon.eddieDir.TC, Hexagon.eddieDir.NA, Hexagon.eddieDir.NA, Hexagon.eddieDir.FC, Hexagon.eddieDir.NA},true);
+        Random rand = new Random(1);
+        int a;
+        int b;
+
+        for (int y = 2; y < y_width - 2; y++) {
+//            a = rand.nextInt(6);
+//            b = rand.nextInt(6);
+//            grid[2][y].setDirection(a, Hexagon.eddieDir.TC);
+//            grid[2][y].setDirection(b, Hexagon.eddieDir.TC);
+
+            grid[2][y].setDirection(2, Hexagon.eddieDir.TC);
+            grid[2][y].setDirection(1, Hexagon.eddieDir.TC);
+        }
     }
 
 
     public void setWalls(){
-        insertDiagonalWall(x_length-1,0,y_width-1);
-        insertHorizontalWall(0,0,x_length-1,true);//top wall
-        insertHorizontalWall(0,y_width-1,x_length-1,false);//bottom wall
+        insertVerticalWall(0,0,y_width, false); //left wall
+
+        insertVerticalWall(x_length-1,0,y_width-1,true); //right wall
+        insertHorizontalWall(0,0,x_length,true);//top wall
+        insertHorizontalWall(0,y_width-1,x_length,false);//bottom wall
         insertCornerWalls();
     }
 
