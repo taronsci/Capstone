@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="696f1cbc-6b04-4c28-a223-83f389ed66c1" name="Changes" comment="removed unused methods and tests">
+    <list default="true" id="696f1cbc-6b04-4c28-a223-83f389ed66c1" name="Changes" comment="Added UML class diagram">
+      <change afterPath="$PROJECT_DIR$/src/CollisionRules.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edge.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HexCellularAutomaton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HexCellularAutomaton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Hexagon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hexagon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HexagonGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HexagonGrid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MethodsNotUsed" beforeDir="false" afterPath="$PROJECT_DIR$/src/MethodsNotUsed" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VertexGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VertexGrid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UML class diagram.puml" beforeDir="false" afterPath="$PROJECT_DIR$/src/UML class diagram.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/WolframRules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WolframRules.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,6 +23,7 @@
       <list>
         <option value="Class" />
         <option value="UML Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -181,7 +180,23 @@
       <option name="project" value="LOCAL" />
       <updated>1747563707996</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="some changes">
+      <option name="closed" value="true" />
+      <created>1747590278866</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1747590278866</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added UML class diagram">
+      <option name="closed" value="true" />
+      <created>1747590308938</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1747590308938</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -203,6 +218,8 @@
     <MESSAGE value="added walls and animation" />
     <MESSAGE value="changes" />
     <MESSAGE value="removed unused methods and tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed unused methods and tests" />
+    <MESSAGE value="some changes" />
+    <MESSAGE value="Added UML class diagram" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added UML class diagram" />
   </component>
 </project>

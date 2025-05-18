@@ -5,7 +5,7 @@ public class HexCellularAutomaton {
 
     private HexagonGrid main;
     private HexagonGrid clone;
-    public final WolframRules rules;
+    public final CollisionRules rules;
 
     private int count = 0;
 

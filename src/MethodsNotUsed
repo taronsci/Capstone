@@ -941,6 +941,71 @@ public Edge(eddie direction){
     }
 
 
+                        Old updateHexagoon method
+
+/**
+     * Updates the hexagon according to the output of the rule, and the edges that should be changed. If a rule was not found, then push all eddies forward (only inside the hexagon)
+     * @param rule the rule to be enforced
+     * @param rules is true if a specific rule was found, false if not.
+     */
+    //if rule is positive, then rule, if not, then pushForward. Remove boolean variable
+    public void updateHexagon(int rule, boolean rules, boolean[] shouldBeChanged, Hexagon original){
+        eddieDir[] originalEdgeDirections = original.getHexagonEddies();
+
+        if(rules) { //if there is a rule then rules is true.
+            setEdgeDirections(WolframRules.output[rule],true); //set eddies to clone
+            original.setEdgeDirections(new eddieDir[]{eddieDir.NA,eddieDir.NA,eddieDir.NA,eddieDir.NA,eddieDir.NA,eddieDir.NA},true);//delete all from original
+        }
+        else if(shouldBeChanged != null){ //the rule is applied and the eddies in shouldBeChanged that are false should be pushed forward or should stay the same; else if(shouldBeChanged != null)
+            for (int i = 0; i < 6; i++) {
+                if(shouldBeChanged[i]) {
+//                    System.out.println(10);
+
+                    if(getEddie(i) == eddieDir.NA) //if eddie is FC, do not update it. just changed
+                        setDirection(i, WolframRules.output[rule][i]);
+
+                    original.setDirection(i,eddieDir.NA); //delete from original
+                }
+                else { //for the eddies that should be pushed forward or should not change
+                    if (originalEdgeDirections[i] == eddieDir.TC) { //check if the eddie in question is TC. If it is, then it should be pushed forward
+//                        System.out.println(11);
+
+                        if(getEddie(i) == eddieDir.NA) // only update if direction is NA. aka eddie has not been pushed here
+                            setDirection(i, WolframRules.output[rule][i]); //the update is performed
+
+                        setDirection((i + 3) % 6, eddieDir.FC); //eddie is pushed forward
+                        original.setDirection(i, eddieDir.NA);         //delete from original
+//                        shouldBeChanged[(i + 3) % 6] = false; //the direction where the eddie has been pushed should not change any more
+                    }
+                    else { //do nothing
+//                        System.out.println(12);
+                        //idk if i should make the original NA here..no
+                    }
+                }
+            }
+        }
+        else{ //if there are no rules that can be applied, push all forward (inside hexagon)
+            for (int i = 0; i < 6; i++) {
+                if(originalEdgeDirections[i] == eddieDir.TC) { //check if there is an eddie TC that should be pushed forward. We ignore FC eddies here. NA eddies do not change
+//                    System.out.println("pushing forward" + 13);
+
+                    setDirection((i + 3) % 6, eddieDir.FC); //eddie is pushed forward
+                    original.setDirection(i, eddieDir.NA); //NA appears in its place             problem here?
+
+//                    System.out.println("original" + original);
+//                    System.out.println("copy" + this);
+
+//                    System.out.println(this);
+//                    System.out.println(getEdge_nw().getDirection());
+                }
+            }
+
+        }
+    }
+
+
+
+
 Tests:
 
                                                                 VertexGrid

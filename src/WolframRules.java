@@ -1,8 +1,7 @@
-
-public class WolframRules {
+public class WolframRules implements CollisionRules {
     //Edge n, Edge nw, Edge sw, Edge s, Edge se, Edge ne
 
-    public static final Hexagon.eddieDir[][] input = new Hexagon.eddieDir[][]{ //5x6
+    public final Hexagon.eddieDir[][] input = new Hexagon.eddieDir[][]{ //5x6
             {Hexagon.eddieDir.NA,Hexagon.eddieDir.TC,Hexagon.eddieDir.NA,Hexagon.eddieDir.NA,Hexagon.eddieDir.TC,Hexagon.eddieDir.NA},//2
             {Hexagon.eddieDir.NA,Hexagon.eddieDir.TC,Hexagon.eddieDir.NA,Hexagon.eddieDir.NA,Hexagon.eddieDir.TC,Hexagon.eddieDir.TC},//3
             {Hexagon.eddieDir.TC,Hexagon.eddieDir.NA,Hexagon.eddieDir.NA,Hexagon.eddieDir.TC,Hexagon.eddieDir.NA,Hexagon.eddieDir.TC},//3
@@ -10,7 +9,7 @@ public class WolframRules {
             {Hexagon.eddieDir.TC,Hexagon.eddieDir.TC,Hexagon.eddieDir.NA,Hexagon.eddieDir.TC,Hexagon.eddieDir.TC,Hexagon.eddieDir.NA}//4
     };
 
-    public static final Hexagon.eddieDir[][] output = new Hexagon.eddieDir[][]{ //5x6
+    public final Hexagon.eddieDir[][] output = new Hexagon.eddieDir[][]{ //5x6
             {Hexagon.eddieDir.NA,Hexagon.eddieDir.NA,Hexagon.eddieDir.FC,Hexagon.eddieDir.NA,Hexagon.eddieDir.NA,Hexagon.eddieDir.FC},
             {Hexagon.eddieDir.FC,Hexagon.eddieDir.NA,Hexagon.eddieDir.FC,Hexagon.eddieDir.FC,Hexagon.eddieDir.NA,Hexagon.eddieDir.NA},
             {Hexagon.eddieDir.NA,Hexagon.eddieDir.FC,Hexagon.eddieDir.FC,Hexagon.eddieDir.NA,Hexagon.eddieDir.FC,Hexagon.eddieDir.NA},
@@ -18,6 +17,12 @@ public class WolframRules {
             {Hexagon.eddieDir.NA,Hexagon.eddieDir.FC,Hexagon.eddieDir.FC,Hexagon.eddieDir.NA,Hexagon.eddieDir.FC,Hexagon.eddieDir.FC}
     };
 
+    public Hexagon.eddieDir[] getInput(int rule){
+        return input[rule];
+    }
+    public Hexagon.eddieDir[] getOutput(int rule){
+        return output[rule];
+    }
 
     /**
      * Enforces rule on the given Hexagon if there is one, otherwise pushes eddies forward inside the Hexagon
@@ -44,13 +49,12 @@ public class WolframRules {
                     return;
                 }
             }
-
             if(count == 6) {
-                copy.updateHexagon(r, true, null, original); //update according to rule
+                copy.updateHexagon(getOutput(r), original); //update according to rule
                 return;
             }
         }
 
-        copy.updateHexagon(-2, false, null, original); //push forward
+        copy.updateHexagon(null, original ); //push forward
     }
 }
