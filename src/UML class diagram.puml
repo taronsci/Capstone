@@ -1,0 +1,97 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Vertex {
+  - coordinate : int[]
+}
+
+enum eddie{
+    + SE
+    + ES
+    + NA
+}
+
+class Edge {
+  - start : Vertex
+  - end : Vertex
+  - direction : eddie
+  + void setNull()
+}
+
+class VertexGrid {
+  - grid : Vertex[][]
+  - edges : HashMap<List<Vertex>, Edge>
+  + VertexGrid(int length, int width)
+}
+
+enum eddieDir{
+    + FC
+    + TC
+    + NA
+}
+
+class Hexagon {
+    + vGrid : VertexGrid {readOnly}
+    + center : Vertex {readOnly}
+
+    - edge_n : Edge
+    - edge_nw : Edge
+    - edge_sw : Edge
+    - edge_s : Edge
+    - edge_se : Edge
+    - edge_ne : Edge
+
+    + Hexagon(Vertex center, VertexGrid vGrid)
+'    - void setEdgeDirection(Edge e, eddieDir dir)
+'    + boolean hasDirection(int edge)
+    + void setEdgeDirections(eddieDir[] output, boolean all)
+'    + void setDirection(int edge, eddieDir dir)
+    + eddieDir[] getHexagonEddies()
+    + void reflectSlip(eddieDir[] hex, Hexagon original)
+    + void makeWall(int edge)
+    + void updateHexagon(int rule, boolean rules, boolean[] shouldBeChanged, Hexagon original)
+}
+
+class HexagonGrid {
+    - grid Hexagon[][]
+    - vGrid VertexGrid
+    + void setWalls()
+    + void setUpGrid()
+}
+
+class WolframRules{
+    + {static} input : EddieDir[][] {readOnly}
+    + {static} output : EddieDir[][] {readOnly}
+    + void enforceRule(Hexagon original, Hexagon copy)
+}
+
+class HexCellularAutomaton{
+    - main : HexagonGrid
+    - clone : HexagonGrid
+    + rules : WolframRules {readOnly}
+    - void update()
+    - void copy()
+    + void step(int count)
+    + void setup()
+    + void setWall(int x_wall, int y_wall, int wall_length)
+}
+
+Edge --> Vertex
+
+Edge --> eddie
+WolframRules --> eddieDir
+
+VertexGrid *-- Edge
+VertexGrid *-- Vertex
+
+Hexagon --> VertexGrid
+Hexagon --> Vertex
+Hexagon --> Edge
+
+HexagonGrid *-- Hexagon
+HexagonGrid *-- VertexGrid
+
+HexCellularAutomaton *-- HexagonGrid
+HexCellularAutomaton --> WolframRules
+
+@enduml
