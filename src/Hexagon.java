@@ -39,21 +39,6 @@ public class Hexagon {
 //        setInitialEdgeDirections(edge_n, edge_nw, edge_sw, edge_s, edge_se, edge_ne);
     }
 
-    public Hexagon(Hexagon original){
-        if(original == null){
-            System.out.println("ERROR");
-            System.exit(0);
-        }
-        center = new Vertex(original.center);
-        edge_n = new Edge(original.edge_n);
-        edge_nw = new Edge(original.edge_nw);
-        edge_sw = new Edge(original.edge_sw);
-        edge_s = new Edge(original.edge_s);
-        edge_se = new Edge(original.edge_se);
-        edge_ne = new Edge(original.edge_ne);
-//        this.edgeDirections = new eddieDir[6];
-//        System.arraycopy(original.edgeDirections, 0, this.edgeDirections, 0, edgeDirections.length);
-    }
 
     /**
      * Called in setter methods to set the Edge direction

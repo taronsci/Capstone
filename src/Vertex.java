@@ -6,17 +6,6 @@ public class Vertex {
         coordinate = new int[]{x, y};
     }
 
-    public Vertex(Vertex original){
-        if(original == null){
-            System.out.println("ERROR");
-            System.exit(0);
-        }
-
-        coordinate = new int[2];
-        System.arraycopy(original.coordinate, 0,this.coordinate,0,coordinate.length);
-//        this.coordinate[0] = original.coordinate[0];
-//        this.coordinate[1] = original.coordinate[1];
-    }
 
     public int[] getCoordinate() {
         return coordinate;

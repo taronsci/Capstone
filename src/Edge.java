@@ -22,17 +22,6 @@ public class Edge {
         end = new Vertex(0,0);
     }
 
-    public Edge(Edge original){
-        if(original == null){
-            System.out.println("ERROR");
-            System.exit(0);
-        }
-
-        this.start = new Vertex(original.start);
-        this.end = new Vertex(original.end);
-        this.direction = original.direction;
-    }
-
     /**
      * 2 Edges are equal if they have the same direction
      * @param o
@@ -70,6 +59,7 @@ public class Edge {
     public List<Vertex> getEdge(){
         return List.of(start, end);
     }
+
     public void setNull(){
         start = null;
         end = null;

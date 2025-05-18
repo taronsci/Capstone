@@ -1,4 +1,3 @@
-import java.util.Arrays;
 
 public class WolframRules {
     //Edge n, Edge nw, Edge sw, Edge s, Edge se, Edge ne

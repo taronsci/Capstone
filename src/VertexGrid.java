@@ -2,8 +2,6 @@ import java.util.*;
 
 public class VertexGrid {
 
-//    private static VertexGrid instance; //singleton
-
     private Vertex[][] grid;
     public final int x_length;
     public final int y_width;
@@ -95,30 +93,4 @@ public class VertexGrid {
         return res;
     }
 
-    public static void main(String[] args) {
-        VertexGrid a = new VertexGrid(5,5);
-        for(int i = 0; i < a.y_width;i++){
-            for(int j = 0;j < a.x_length;j++){
-                System.out.print(a.getVertex(j,i) + " ");
-            }
-            System.out.println();
-        }
-
-        Vertex t = a.getVertex(1,1);
-        Vertex t1 = a.getVertex(2,1);
-        Vertex t2 = a.getVertex(0,2);
-
-        Edge b = a.getEdge(t1,t);
-        System.out.println(b);
-
-        b.setDirection(Edge.eddie.ES);
-
-        Edge c = a.getEdge(t1,t2);
-        c.setDirection(Edge.eddie.SE);
-
-        System.out.println(b);
-        System.out.println(b.getDirection());
-        System.out.println(c);
-        System.out.println(c.getDirection());
-    }
 }
