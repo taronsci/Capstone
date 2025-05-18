@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="696f1cbc-6b04-4c28-a223-83f389ed66c1" name="Changes" comment="Added UML class diagram">
-      <change afterPath="$PROJECT_DIR$/src/CollisionRules.java" afterDir="false" />
+    <list default="true" id="696f1cbc-6b04-4c28-a223-83f389ed66c1" name="Changes" comment="simplified update method, added Interface for Rules">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HexCellularAutomaton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HexCellularAutomaton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hexagon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hexagon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MethodsNotUsed" beforeDir="false" afterPath="$PROJECT_DIR$/src/MethodsNotUsed" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CollisionRules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CollisionRules.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/UML class diagram.puml" beforeDir="false" afterPath="$PROJECT_DIR$/src/UML class diagram.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/WolframRules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WolframRules.java" afterDir="false" />
     </list>
@@ -196,7 +193,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747590308938</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="simplified update method, added Interface for Rules">
+      <option name="closed" value="true" />
+      <created>1747596089002</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1747596089002</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -220,6 +225,7 @@
     <MESSAGE value="removed unused methods and tests" />
     <MESSAGE value="some changes" />
     <MESSAGE value="Added UML class diagram" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added UML class diagram" />
+    <MESSAGE value="simplified update method, added Interface for Rules" />
+    <option name="LAST_COMMIT_MESSAGE" value="simplified update method, added Interface for Rules" />
   </component>
 </project>

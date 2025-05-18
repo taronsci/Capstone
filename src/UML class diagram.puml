@@ -62,12 +62,12 @@ class HexagonGrid {
 class WolframRules{
     + input : EddieDir[][] {readOnly}
     + output : EddieDir[][] {readOnly}
-    + void enforceRule(...)
 }
-interface CollisionRules{
+abstract class CollisionRules{
+    # input : eddieDir[][]
+    # output : eddieDir[][]
+    + CollisionRules(eddieDir[][] input, eddieDir[][] output)
     + void enforceRule(Hexagon original, Hexagon copy)
-    + eddieDir[] getOutput(int rule)
-    + eddieDir[] getInput(int rule)
 }
 
 class HexCellularAutomaton{
@@ -84,8 +84,10 @@ class HexCellularAutomaton{
 Edge --> Vertex
 
 Edge --> eddie
-WolframRules --> eddieDir
+
 WolframRules ..|> CollisionRules
+CollisionRules --> eddieDir
+WolframRules --> eddieDir
 
 VertexGrid *-- Edge
 VertexGrid *-- Vertex
