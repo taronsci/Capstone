@@ -39,8 +39,8 @@ public class WolframRules {
                 if(hex[i] == input[r][i]) {  //compare edge with rule
                     count++;
                 }else if(hex[i] == null) {
-                    copy.reflect1(hex, original);
-//                    copy.reflect2(hex, original);
+                    copy.reflectSlip(hex, original);
+//                    copy.reflectNoSlip(hex, original);
                     return;
                 }
             }

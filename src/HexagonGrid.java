@@ -3,21 +3,16 @@ import java.util.Random;
 public class HexagonGrid{
 
     private VertexGrid vGrid;
-    private Hexagon[][] grid;
-    int x_length; //size of hex grid
-    int y_width;
+    private Hexagon[][] grid; //x_length, y_length
 
     public HexagonGrid(int xx, int yy){
-        vGrid = new VertexGrid(xx+2, yy+2);
-
-        x_length = xx;
-        y_width = yy;
-        grid = new Hexagon[x_length][y_width];
+        vGrid = new VertexGrid(xx + 2, yy + 2);
+        grid = new Hexagon[xx][yy];
 
         int i = 1;
         int j = 1;
-        for(int y = 0; y < y_width;y++) { //y
-            for(int x = 0; x < x_length; x++) { //x
+        for(int y = 0; y < yy;y++) { //y
+            for(int x = 0; x < xx; x++) { //x
                 grid[x][y] = new Hexagon(vGrid.getVertex(i,j), vGrid);
                 i++;
             }
@@ -27,10 +22,10 @@ public class HexagonGrid{
     }
 
     public int getX_length() {
-        return x_length;
+        return grid.length;
     }
     public int getY_width() {
-        return y_width;
+        return grid[0].length;
     }
     public Hexagon getHexagon(int x, int y){
         return grid[x][y];
@@ -91,10 +86,10 @@ public class HexagonGrid{
     public void insertCornerWalls(){
         Hexagon cur;
 
-        cur = this.getHexagon(x_length-1,y_width-1); //bottom right
+        cur = this.getHexagon(getX_length()-1,getY_width()-1); //bottom right
         cur.makeWall(2);
 
-        cur = this.getHexagon(x_length - 1,0); //top right
+        cur = this.getHexagon(getX_length() - 1,0); //top right
         cur.makeWall(5);
 
     }
@@ -104,7 +99,7 @@ public class HexagonGrid{
         int a;
         int b;
 
-        for (int y = 2; y < y_width - 2; y++) {
+        for (int y = 2; y < getY_width() - 2; y++) {
 //            a = rand.nextInt(6);
 //            b = rand.nextInt(6);
 //            grid[2][y].setDirection(a, Hexagon.eddieDir.TC);
@@ -116,17 +111,19 @@ public class HexagonGrid{
     }
 
     public void setWalls(){
-        insertVerticalWall(0,0,y_width, false); //left wall
+        insertVerticalWall(0,0,getY_width(), false); //left wall
 
-        insertVerticalWall(x_length-1,0,y_width-1,true); //right wall
-        insertHorizontalWall(0,0,x_length,true);//top wall
-        insertHorizontalWall(0,y_width-1,x_length,false);//bottom wall
+        //remove this later
+        insertVerticalWall(getX_length()-1,0,getY_width()-1,true); //right wall
+
+        insertHorizontalWall(0,0,getX_length(),true);//top wall
+        insertHorizontalWall(0,getY_width()-1,getX_length(),false);//bottom wall
         insertCornerWalls();
     }
 
     public void pr(){
-        for(int y = 0; y < y_width; y++) { //y
-            for(int x = 0; x < x_length; x++) { //x
+        for(int y = 0; y < getY_width(); y++) { //y
+            for(int x = 0; x < getX_length(); x++) { //x
                 System.out.print(grid[x][y] + "    ");
             }
             System.out.println();

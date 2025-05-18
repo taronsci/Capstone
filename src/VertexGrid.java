@@ -3,13 +3,9 @@ import java.util.*;
 public class VertexGrid {
 
     private Vertex[][] grid;
-    public final int x_length;
-    public final int y_width;
     private HashMap<List<Vertex>, Edge> edges;
 
     public VertexGrid(int length, int width){
-        x_length = length;
-        y_width = width;
         grid = new Vertex[length][width];
         edges = new HashMap<>();
 
@@ -18,7 +14,7 @@ public class VertexGrid {
         grid[1][0] = cur;
 
         //build top row
-        for(int i = 2;i < x_length;i++){
+        for(int i = 2;i < getX_length();i++){
             Vertex next = new Vertex(i,0);
             grid[i][0] = next;
 
@@ -42,7 +38,7 @@ public class VertexGrid {
                     if(x!=0) {
                         edges.put(Arrays.asList(down, grid[x - 1][y - 1]), new Edge(down, grid[x - 1][y - 1])); //top left
                     }
-                    if(x_length % 2 != 0 && x == length-1)
+                    if(getX_length() % 2 != 0 && x == length-1)
                         continue;
                     edges.put(Arrays.asList(down, grid[x+1][y-1]), new Edge(down, grid[x+1][y-1])); //top right
                 }
@@ -77,10 +73,10 @@ public class VertexGrid {
     }
 
     public int getX_length() {
-        return x_length;
+        return grid.length;
     }
     public int getY_width() {
-        return y_width;
+        return grid[0].length;
     }
     public Vertex[] getVertexArray(int[] x, int[] y){
         if(x.length != 7 || x.length != y.length)

@@ -5,7 +5,7 @@ public class HexCellularAutomaton {
 
     private HexagonGrid main;
     private HexagonGrid clone;
-    private WolframRules rules;
+    public final WolframRules rules;
 
     private int count = 0;
 
@@ -27,13 +27,7 @@ public class HexCellularAutomaton {
     private void update() {
         for(int x = 0; x < main.getX_length(); x++) { // int x = x_length - 1; x >=0 ; x--
             for (int y = 0; y < main.getY_width(); y++) {
-//                System.out.println(x+ " " + y);
                 rules.enforceRule(main.getHexagon(x,y), clone.getHexagon(x,y));
-
-//                System.out.println("original");
-//                main.pr();
-//                System.out.println("copy");
-//                clone.pr();
             }
         }
     }
@@ -43,19 +37,11 @@ public class HexCellularAutomaton {
      */
     private void copy(){
         //throw exception if clone is bigger than original or isn't suitable
-
         for(int x = 0; x < main.getX_length(); x++) { // int x = x_length - 1; x >=0 ; x--
             for (int y = 0; y < main.getY_width(); y++) {
-//                System.out.println(x+ " " + y);
-
                 //edge null checks done only for method below
                 main.getHexagon(x,y).setEdgeDirections(clone.getHexagon(x,y).getHexagonEddies(),false);
                 clone.getHexagon(x,y).reset();
-
-//                System.out.println("original");
-//                main.pr();
-//                System.out.println("copy");
-//                clone.pr();
             }
         }
     }
@@ -64,8 +50,8 @@ public class HexCellularAutomaton {
         for(int i = 0; i < count; i++){
             update();
             copy();
-//            if(this.count < 50)
-                main.setUpGrid();
+
+            main.setUpGrid();
         }
     }
 

@@ -16,11 +16,6 @@ public class Edge {
     public Edge(Vertex start, Vertex end){
          this(start, end, eddie.NA);
     }
-    public Edge(eddie direction){
-        this.direction = direction;
-        start = new Vertex(0,0);
-        end = new Vertex(0,0);
-    }
 
     /**
      * 2 Edges are equal if they have the same direction

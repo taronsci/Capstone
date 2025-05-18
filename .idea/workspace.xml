@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="696f1cbc-6b04-4c28-a223-83f389ed66c1" name="Changes" comment="changes">
+    <list default="true" id="696f1cbc-6b04-4c28-a223-83f389ed66c1" name="Changes" comment="removed unused methods and tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HexCellularAutomaton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HexCellularAutomaton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Hexagon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hexagon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HexagonGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HexagonGrid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MethodsNotUsed" beforeDir="false" afterPath="$PROJECT_DIR$/src/MethodsNotUsed" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vertex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vertex.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VertexGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VertexGrid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WolframRules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WolframRules.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +173,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747470612042</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="removed unused methods and tests">
+      <option name="closed" value="true" />
+      <created>1747563707996</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1747563707996</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -192,6 +202,7 @@
     <MESSAGE value="working model" />
     <MESSAGE value="added walls and animation" />
     <MESSAGE value="changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="changes" />
+    <MESSAGE value="removed unused methods and tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed unused methods and tests" />
   </component>
 </project>

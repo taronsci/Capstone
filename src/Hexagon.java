@@ -3,11 +3,10 @@ public class Hexagon {
     public enum eddieDir{FC, TC, NA}
     //Hexagon only sees TC eddies
 
-    private VertexGrid vGrid;
-    private final Vertex center;
+    public final VertexGrid vGrid;
+    public final Vertex center;
 
     //Edge n, Edge nw, Edge sw, Edge s, Edge se, Edge ne
-
     private Edge edge_n;
     private Edge edge_nw;
     private Edge edge_sw;
@@ -66,6 +65,7 @@ public class Hexagon {
                 System.out.println("Provided edge is not in this hexagon?");
         }
     }
+
     public boolean hasDirection(Edge e){
         return e.getDirection() != Edge.eddie.NA;
     }
@@ -216,6 +216,7 @@ public class Hexagon {
         }
         return ans;
     }
+
     public eddieDir getEddie(int i){
         Edge[] edges = getEdges();
         Vertex other;
@@ -305,7 +306,7 @@ public class Hexagon {
      * @param hex
      * @param original
      */
-    public void reflect1(eddieDir[] hex, Hexagon original){
+    public void reflectSlip(eddieDir[] hex, Hexagon original){
 //        //vertical eddies to push forward
 //        if(hex[0] == eddieDir.TC){
 //            setDirection(3, eddieDir.FC);
@@ -388,7 +389,7 @@ public class Hexagon {
      * @param hex
      * @param original
      */
-    public void reflect2(eddieDir[] hex, Hexagon original){
+    public void reflectNoSlip(eddieDir[] hex, Hexagon original){
         //for now assume vertical wall
         if (hex[0] == null || hex[3] == null ) {
             if(hex[1] == eddieDir.TC) {
@@ -437,16 +438,6 @@ public class Hexagon {
 //                edge_ne = null;
                 break;
         }
-    }
-
-
-
-    public static void main(String[] args) {
-        eddieDir[] test = new eddieDir[2];
-        test[1] = eddieDir.FC;
-        System.out.println(test[0]);
-
-
     }
 
 
